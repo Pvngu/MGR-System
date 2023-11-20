@@ -38,7 +38,7 @@ if(isset($_SESSION["empleado_id"])){
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
                 <li>
-                    <a href="inventory.php">
+                    <a href="report.php">
                         <i class='bx bx-home-alt-2'></i>
                         <span>Home</span>
                     </a>
@@ -46,10 +46,10 @@ if(isset($_SESSION["empleado_id"])){
                 </li>
                 <li>
                     <a href="#">
-                        <i class='bx bx-table'></i>
-                        <span>Inventario</span>
+                        <i class='bx bxs-edit' ></i>
+                        <span>Reportes</span>
                     </a>
-                    <span class="tooltip">Inventario</span>
+                    <span class="tooltip">Reportes</span>
                 </li>
             </div>
             <div class="bottomItems">
@@ -80,11 +80,11 @@ if(isset($_SESSION["empleado_id"])){
                 <h1>Bienvenido al sistema de inventarios de MGR</h1>
                 <h2>Menu principal</h2>
             </div>
-                <div class="container">
+            <div class="container">
                     <a class="item-container" href="#">
-                        <img src="assets/images/inventory.png" alt="icon image">
-                        <h2>Ver inventario</h2>
-                        <p>Muestra la disponibilidad y cantidades de productos para una gestión eficiente del stock del inventario.</p>
+                        <img src="assets/images/Report.png" alt="icon image">
+                        <h2>Realizar reportes</h2>
+                        <p>Ofrece datos esenciales para generar informes detallados sobre el inventario, optimizando la toma de decisiones.</p>
                     </a>
                     <a class="item-container" href="#">
                         <img src="assets/images/settings-icon.png" alt="icon image">
@@ -162,26 +162,6 @@ if(isset($_SESSION["empleado_id"])){
             html[0].classList.remove(html[0].classList.item(0));
             html[0].classList.add(this.id);
         });
-    }
-
-    ////Font size selector
-    function changeFontSize(){
-        var body = document.body;
-        var selector = document.getElementById('fontSizeSelector');
-        var selectedValue = selector.value;
-        switch (selectedValue) {
-            case 'small':
-                body.style.fontSize = '12px';
-                break;
-            case 'normal':
-                body.style.fontSize = '16px';
-                break;
-            case 'big':
-                body.style.fontSize = '20px';
-                break;
-            default:
-                body.style.fontSize = '16px';
-        }
     }
 </script>
 </html>

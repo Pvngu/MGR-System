@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(isset($_SESSION["empleado_id"])){
+    require __Dir__ . "/scripts/database.php";
+
+    $sql = "SELECT * FROM empleados WHERE empleado_id = {$_SESSION["empleado_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +38,7 @@
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
                 <li>
-                    <a href="home.html">
+                    <a href="admin.php">
                         <i class='bx bx-home-alt-2'></i>
                         <span>Home</span>
                     </a>
@@ -73,25 +86,9 @@
         </ul>
     </div>
     <div class="home">
-        <header>
-            <div class="headerContent">
-                <div class="leftContent">
-                    <h1 class="bizName">MGR MAQUINADOS</h1>
-                </div>
-                <div class="rightContent">
-                    <i class='bx bx-bell'></i>
-                    <div class="userProfile">
-                        <div class="userText">
-                            <div class="name">Nombre Usuario</div>
-                            <div class="job">Rol</div>
-                        </div>
-                        <div class="profilePicture">
-                            <i class='bx bx-user'></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <?php
+        include("includes/header.php");
+        ?>
         <div class="content">
             <div class="welcome">
                 <h1>Bienvenido al sistema de inventarios de MGR</h1>
@@ -120,114 +117,9 @@
                     </a>
                 </div>
         </div>
-        <!-- settigns menu -->
-        <dialog class="settingsModal modal">
-            <div class="modalHeader">
-                <h1>Configuracion</h1>
-                <i class='bx bx-x closeBtnModalS modalX'></i>
-            </div>
-            <div class="modalContent stgModal">
-                <div class="switchContainer">
-                    <h2>Tema</h2>
-                    <div class="theme-switcher">
-                        <input type="radio" id="light-theme" name="themes">
-                        <label for="light-theme">
-                            <span>
-                                <i class='bx bxs-sun'></i> Brillo
-                            </span>
-                        </label>
-                        <input type="radio" id="dark-theme" name="themes">
-                        <label for="dark-theme">
-                            <span>
-                                <i class='bx bxs-moon'></i> Dark
-                            </span>
-                        </label>
-                        <span class="slider"></span>
-                    </div>
-                </div>
-                <ul>
-                    <li>
-                        <a class="openModalAS">
-                            <i class='bx bx-cog'></i>
-                            <span>Configuracion de cuenta</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="openModalAU">
-                            <i class='bx bx-info-circle'></i>
-                            <span>Acerca de la pagina</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </dialog>
-        <!-- Logout menu -->
-        <dialog class="logoutModal modal">
-            <div class="modalHeader">
-                <h1>Cerrar sesion</h1>
-                <i class='bx bx-x closeBtnModalL modalX'></i>
-            </div>
-            <div class="modalContent lgtModal">
-                <div class="logoutText">Esta seguro que quiere cerrar la sesion?</div>
-                <div class="logoutButtons">
-                    <button id="logoutClose" class = "closeBtnModalL">Cancelar</button>
-                    <button id="logoutOk" type="submit">Ok</button>
-                </div>
-            </div>
-        </dialog>
-        <!-- Account settings -->
-        <dialog class="accountStgModal modal">
-            <div class="modalHeader">
-                <h1>Configuracion de cuenta</h1>
-                <i class='bx bx-x closeBtnModalAS modalX'></i>
-            <div class="modalContent accStgModal">
-                <ul>
-                    <h2>Cuenta</h2>
-                    <li>
-                        <i class='bx bx-user'></i>
-                        <span>Nombre de usuario: </span>
-                        <span>rodolfo el reno</span>
-                    </li>
-                    <li>
-                        <i class='bx bx-user'></i>
-                        <span>Tipo de cuenta: </span>
-                        <span>Admin todo poderoso</span>
-                    </li>
-                    <h2>Pagina</h2>
-                    <form action="">
-                        <li>
-                            <i class='bx bx-font-size' ></i>
-                            <label for="fontSizeSelector">Tamano de letra:</label>
-                            <select name="font-size" id="fontSizeSelector" onchange="changeFontSize()">
-                                <option value="small">Pequeña</option>
-                                <option value="normal" selected>Normal</option>
-                                <option value="big">Grande</option>
-                            </select>
-                        </li>
-                    </form>
-                </ul>
-            </div>
-        </dialog>
-        <!-- About us -->
-        <dialog class="aboutUsModal modal">
-                <div class="modalHeader">
-                    <h1>Acerca de la pagina</h1>
-                    <i class='bx bx-x closeBtnModalAU modalX'></i>
-                </div>
-                <div class="modalContent AUModal">
-                    <p>En este sistema, nos dedicamos a proporcionar herramientas avanzadas y fáciles de usar para ayudarte a mantener un control preciso de tus existencias. Optimiza tus procesos, reduce costos y mejora la eficiencia con nuestras funciones intuitivas.</p>
-                    <h2>Mision</h2>
-                    <p>Facilitar la gestión de inventarios para empresas de todos los tamaños, permitiéndote tomar decisiones informadas y maximizar la eficiencia operativa.</p>
-                    <h2>Caracteristicas Destacadas</h2>
-                    <ul>
-                        <li>Seguimiento en tiempo real</li>
-                        <li>Alertas de reabastecimiento</li>
-                        <li>Informes detallados</li>
-                        <li>Integracion con sistemas de punto de venta (POS)</li>
-                    </ul>
-                    <p></p>
-                </div>
-        </dialog>
+        <?php
+            include("includes\sidebar_views.php");
+        ?>
     </div>
 </body>
 <script>
@@ -294,26 +186,6 @@
             html[0].classList.remove(html[0].classList.item(0));
             html[0].classList.add(this.id);
         });
-    }
-
-    ////Font size selector
-    function changeFontSize(){
-        var body = document.body;
-        var selector = document.getElementById('fontSizeSelector');
-        var selectedValue = selector.value;
-        switch (selectedValue) {
-            case 'small':
-                body.style.fontSize = '12px';
-                break;
-            case 'normal':
-                body.style.fontSize = '16px';
-                break;
-            case 'big':
-                body.style.fontSize = '20px';
-                break;
-            default:
-                body.style.fontSize = '16px';
-        }
     }
 </script>
 </html>

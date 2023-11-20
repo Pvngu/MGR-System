@@ -340,15 +340,6 @@ header .bizName{
     align-items: center;
 }
 
-.accountStgModal ul li select{
-    background: var(--c-bg-primary);
-    border: solid 2px var(--c-border-primary);
-    border-radius: 7px;
-    color: var(--c-text-primary);
-    margin-left: 5px;
-    padding: 4px 15px;
-}
-
 .lgtModal .logoutText{
     padding-block: 8px;
 }
@@ -357,6 +348,9 @@ header .bizName{
     float: right;
     padding-top: 25px;
     padding-bottom: 15px;
+}
+.lgtModal .logoutButtons form{
+    display: inline-block;
 }
 
 .lgtModal .logoutButtons button{

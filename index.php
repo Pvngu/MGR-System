@@ -14,13 +14,13 @@ $is_invalid = false;
         session_regenerate_id();
         $_SESSION["empleado_id"] = $user["empleado_id"];
         switch($user["tipo_cuenta"]){
-          case "admin":
+          case "administrador":
             header("Location: admin.php");
           break;
           case "inventario":
             header("Location: inventory.php");
           break;
-          case "reportes":
+          case "reporte":
             header("Location: report.php");
           break;
         }
