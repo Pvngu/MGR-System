@@ -47,14 +47,18 @@
             </div>
             <div class="modalContent accStgModal">
                 <ul>
-                    <h2>Cuenta</h2>
+                    <h2>Informacion de cuenta</h2>
                     <li>
-                        <i class='bx bx-user'></i>
+                        <i class='bx bx-hash'></i>
                         <span>ID del usuario: <?= $user["empleado_id"] ?></span>
                     </li>
                     <li>
                         <i class='bx bx-user'></i>
-                        <span>Nombre de usuario: <?= $user["nombre"] ?></span>
+                        <span>Nombre: <?= $user["nombre"] ?></span>
+                    </li>
+                    <li>
+                        <i class='bx bx-user'></i>
+                        <span>Nombre de usuario: <?= $user["nombre_usuario"] ?></span>
                     </li>
                     <li>
                         <i class='bx bx-user'></i>
