@@ -207,10 +207,13 @@ if(isset($_SESSION["empleado_id"])){
     // settings window
     const closeButtonS = document.querySelector(".closeBtnModalS")
     const modalS = document.querySelector(".settingsModal")
-    const openButtonS = document.querySelector(".openModalS")
-    openButtonS.addEventListener("click", () => {
+    const openButtonS = document.querySelectorAll(".openModalS")
+    
+    for(i = 0; i < openButtonS.length; i++){
+        openButtonS[i].addEventListener("click", () => {
         modalS.showModal()
     })
+    }
     closeButtonS.addEventListener("click", () => {
         modalS.close();
     })
