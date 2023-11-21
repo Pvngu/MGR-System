@@ -44,7 +44,7 @@ if(isset($_SESSION["empleado_id"])){
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
                 <li>
-                    <a href="admin.php">
+                    <a href="home.php">
                         <i class='bx bx-home-alt-2'></i>
                         <span>Home</span>
                     </a>
@@ -65,7 +65,7 @@ if(isset($_SESSION["empleado_id"])){
                     <span class="tooltip">Reportes</span>
                 </li>
                 <li>
-                    <a href="user.html">
+                    <a href="#">
                         <i class='bx bxs-user-account'></i>
                         <span>Usuarios</span>
                     </a>
@@ -109,7 +109,7 @@ if(isset($_SESSION["empleado_id"])){
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
                 <li>
-                    <a href="inventory.php">
+                    <a href="home.php">
                         <i class='bx bx-home-alt-2'></i>
                         <span>Home</span>
                     </a>
@@ -154,7 +154,7 @@ if(isset($_SESSION["empleado_id"])){
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
                 <li>
-                    <a href="report.php">
+                    <a href="home.php">
                         <i class='bx bx-home-alt-2'></i>
                         <span>Home</span>
                     </a>
