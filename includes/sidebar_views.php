@@ -1,7 +1,7 @@
 <!-- settings menu -->
 <dialog class="settingsModal modal">
     <div class="modalHeader">
-        <h1>Configuracion</h1>
+        <h1>Configuración</h1>
         <i class='bx bx-x closeBtnModalS modalX'></i>
     </div>
         <div class="modalContent stgModal">
@@ -11,13 +11,13 @@
                     <input type="radio" id="light-theme" name="themes">
                     <label for="light-theme">
                         <span>
-                        <i class='bx bxs-sun'></i> Brillo
+                        <i class='bx bxs-sun'></i> Claro
                         </span>
                     </label>
                     <input type="radio" id="dark-theme" name="themes">
                     <label for="dark-theme">
                         <span>
-                            <i class='bx bxs-moon'></i> Dark
+                            <i class='bx bxs-moon'></i> Oscuro
                         </span>
                     </label>
                     <span class="slider"></span>
@@ -27,13 +27,13 @@
                     <li>
                         <a class="openModalAS">
                             <i class='bx bx-cog'></i>
-                            <span>Configuracion de cuenta</span>
+                            <span>Configuración de cuenta</span>
                         </a>
                     </li>
                     <li>
                         <a class="openModalAU">
                             <i class='bx bx-info-circle'></i>
-                            <span>Acerca de la pagina</span>
+                            <span>Acerca de la página</span>
                         </a>
                     </li>
                 </ul>
@@ -42,16 +42,16 @@
 <!-- Account settings -->
 <dialog class="accountStgModal modal">
     <div class="modalHeader">
-        <h1>Configuracion de cuenta</h1>
+        <h1>Configuración de cuenta</h1>
         <i class='bx bx-x closeBtnModalAS modalX'></i>
     </div>
     <div class="modalContent accStgModal">
         <ul>
-            <h2>Informacion de cuenta</h2>
+            <h2>Información de cuenta</h2>
             <li>
                 <i class='bx bx-hash'></i>
                 <span>ID del usuario: <?= $user["empleado_id"] ?></span>
-            </li>
+            </li>Acerca de la página
             <li>
                 <i class='bx bx-user'></i>
                 <span>Nombre: <?= $user["nombre"] ?></span>
@@ -70,7 +70,7 @@
 <!-- About us -->
 <dialog class="aboutUsModal modal">
     <div class="modalHeader">
-        <h1>Acerca de la pagina</h1>
+        <h1>Acerca de la página</h1>
         <i class='bx bx-x closeBtnModalAU modalX'></i>
     </div>
     <div class="modalContent AUModal">
@@ -89,11 +89,11 @@
 <!-- Logout menu -->
 <dialog class="logoutModal modal">
     <div class="modalHeader">
-        <h1>Cerrar sesion</h1>
+        <h1>Cerrar sesión</h1>
         <i class='bx bx-x closeBtnModalL modalX'></i>
     </div>
     <div class="modalContent lgtModal">
-        <div class="logoutText">Esta seguro que quiere cerrar la sesion?</div>
+        <div class="logoutText">Está seguro que quiere cerrar la sesión?</div>
             <div class="logoutButtons">
                 <button id="logoutClose" class = "closeBtnModalL">Cancelar</button>
                 <form action="logout.php" method="post">

@@ -60,7 +60,7 @@ $is_notActivate = false;
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
 
-  <title>Inicio de sesion en MGR</title>
+  <title>Inicio de sesión en MGR</title>
 </head>
 <body>
   <div class="container">
@@ -71,7 +71,7 @@ $is_notActivate = false;
     </div>
     <div class="login-form">
       <form action="index.php" method="post">
-        <h1 class="loginText">Inicio de sesion <br>del personal</h1>
+        <h1 class="loginText">Inicio de sesión <br>del personal</h1>
         <?php if($is_invalid): ?>
           <em style = "color: red;">La cuenta no ha sido encontrada</em>
         <?php endif; ?>
@@ -84,13 +84,17 @@ $is_notActivate = false;
         <div class="input-box">
           <input type="password" name="password" placeholder="Contraseña">
         </div>
-        <input type="submit" name="login" value="Iniciar sesion">
+        <input type="submit" name="login" value="Iniciar sesión">
         <div class="forgot open-button">Olvido la contraseña?</div>
       </form>
       <dialog class="modal" id="modal">
-        <i class='bx bx-x close-button modalX'></i>
-        <h1>Olvido su contraseña?</h1>
-        <p>Si necesita recuperar la contraseña de su cuenta, por favor póngase en contacto con uno de sus supervisores y proporcione su dirección de correo electrónico o su nombre completo. De esta manera, se le brindara asistencia para recuperar su contraseña.</p>
+        <div class="modalHeader">
+          <i class='bx bx-x close-button modalX'></i>
+          <h1>Olvido su contraseña?</h1>      
+        </div>
+        <div class="modalContent">
+          <p>Si necesita recuperar la contraseña de su cuenta, por favor póngase en contacto con uno de sus supervisores y proporcione su dirección de correo electrónico o su nombre completo. De esta manera, se le brindara asistencia para recuperar su contraseña.</p>
+        </div>
       </dialog>
     </div>
   </div>
