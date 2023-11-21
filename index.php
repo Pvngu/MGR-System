@@ -1,6 +1,22 @@
 <?php
 $is_invalid = false;
-
+  if(isset($_COOKIE["username"])){
+    $mysqli = require __DIR__ . "/scripts/database.php";
+    $sql = sprintf("SELECT * FROM empleados WHERE nombre_usuario = '%s'", $mysqli -> real_escape_string($_COOKIE["username"]));
+    $result = $mysqli->query($sql);
+    $user = $result->fetch_assoc();
+    if($user){
+      if($_COOKIE["password"] == $user["password"]){
+        session_start();
+        session_regenerate_id();
+        $_SESSION["empleado_id"] = $user["empleado_id"];
+        setcookie("username", $user["nombre_usuario"], time() + 86400 * 20);
+        setcookie("password",$user["password"], time() + 86400 * 20);
+        header("Location: home.php");
+        exit;
+      }
+    }
+  }
   if($_SERVER["REQUEST_METHOD"] === "POST"){
     $mysqli = require __DIR__ . "/scripts/database.php";
     $sql = sprintf("SELECT * FROM empleados WHERE nombre_usuario = '%s'", $mysqli -> real_escape_string($_POST["username"]));
@@ -13,6 +29,8 @@ $is_invalid = false;
         session_start();
         session_regenerate_id();
         $_SESSION["empleado_id"] = $user["empleado_id"];
+        setcookie("username", $user["nombre_usuario"], time() + 86400 * 20);
+        setcookie("password",$user["password"], time() + 86400 * 20);
         header("Location: home.php");
         exit;
       }

@@ -8,10 +8,9 @@ if(isset($_SESSION["empleado_id"])){
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
-
-    if(!$user["tipo_cuenta"] === "administrador"){
-        session_destroy();
-    }
+}
+else{
+    header("Location: index.php");
 }
 ?>
 
