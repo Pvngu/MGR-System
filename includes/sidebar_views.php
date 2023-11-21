@@ -1,4 +1,4 @@
-<!-- settigns menu -->
+<!-- settings menu -->
 <dialog class="settingsModal modal">
             <div class="modalHeader">
                 <h1>Configuracion</h1>

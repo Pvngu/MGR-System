@@ -195,7 +195,6 @@ header .bizName{
     justify-content: center;
     align-items: center;
     line-height: 1em;
-    margin-left: 40px;
 }
 
 .userProfile .name{
@@ -305,13 +304,13 @@ header .bizName{
     transition: .30s ease, transform 0.25s ease-out;
 }
 
-.theme-switcher input:nth-of-type(1):checked ~ .slider{
+/* .theme-switcher input:nth-of-type(1):checked ~ .slider{
     transform: translateX(0);
 }
 
 .theme-switcher input:nth-of-type(2):checked ~ .slider{
     transform: translateX(100%);
-}
+} */
 
 .stgModal ul li, .accountStgModal ul li{
     list-style: none;

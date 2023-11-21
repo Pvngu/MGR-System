@@ -4,7 +4,6 @@
             <h1 class="bizName">MGR MAQUINADOS</h1>
         </div>
         <div class="rightContent">
-            <i class='bx bx-bell'></i>
                 <div class="userProfile">
                     <div class="userText">
                         <div class="name"><?= htmlspecialchars($user["nombre_usuario"]) ?></div>
