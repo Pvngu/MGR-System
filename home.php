@@ -12,6 +12,13 @@ if(isset($_SESSION["empleado_id"])){
 else{
     header("Location: index.php");
 }
+if(!$user["estado"] == 1){
+    session_destroy();
+    setcookie("username", "", time() -3600);
+    setcookie("password", "", time() -3600);
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,6 @@
 <?php
 $is_invalid = false;
+$is_notActivate = false;
   if(isset($_COOKIE["username"])){
     $mysqli = require __DIR__ . "/scripts/database.php";
     $sql = sprintf("SELECT * FROM empleados WHERE nombre_usuario = '%s'", $mysqli -> real_escape_string($_COOKIE["username"]));
@@ -7,24 +8,27 @@ $is_invalid = false;
     $user = $result->fetch_assoc();
     if($user){
       if($_COOKIE["password"] == $user["password"]){
-        session_start();
-        session_regenerate_id();
-        $_SESSION["empleado_id"] = $user["empleado_id"];
-        setcookie("username", $user["nombre_usuario"], time() + 86400 * 20);
-        setcookie("password",$user["password"], time() + 86400 * 20);
-        header("Location: home.php");
-        exit;
+          session_start();
+          session_regenerate_id();
+          $_SESSION["empleado_id"] = $user["empleado_id"];
+          setcookie("username", $user["nombre_usuario"], time() + 86400 * 20);
+          setcookie("password",$user["password"], time() + 86400 * 20);
+          header("Location: home.php");
+          exit;
+        }
       }
     }
-  }
   if($_SERVER["REQUEST_METHOD"] === "POST"){
     $mysqli = require __DIR__ . "/scripts/database.php";
     $sql = sprintf("SELECT * FROM empleados WHERE nombre_usuario = '%s'", $mysqli -> real_escape_string($_POST["username"]));
     $result = $mysqli->query($sql);
-    //return the record if one was found as an associative array
     $user = $result->fetch_assoc();
 
     if($user){
+      if(!$user["estado"] == 1) {
+        $is_notActivate = true;
+      }
+      else{
       if(password_verify($_POST["password"], $user["password"])){
         session_start();
         session_regenerate_id();
@@ -35,7 +39,10 @@ $is_invalid = false;
         exit;
       }
     }
-    $is_invalid = true;
+    }
+    if(!$is_notActivate){
+      $is_invalid = true;
+    }
   }
 ?>
 <!DOCTYPE html>
@@ -67,6 +74,9 @@ $is_invalid = false;
         <h1 class="loginText">Inicio de sesion <br>del personal</h1>
         <?php if($is_invalid): ?>
           <em style = "color: red;">La cuenta no ha sido encontrada</em>
+        <?php endif; ?>
+        <?php if($is_notActivate): ?>
+          <em style = "color: red;">Su cuenta se encuentra desactivada</em>
         <?php endif; ?>
         <div class="input-box">
           <input type="text" name="username" placeholder="Nombre de usuario">
