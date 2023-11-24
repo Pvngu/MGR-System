@@ -1,5 +1,24 @@
 <?php
-require("authentication.php");
+session_start();
+if(isset($_SESSION["empleado_id"])){
+    require __Dir__ . "/scripts/database.php";
+
+    $sql = "SELECT * FROM empleados WHERE empleado_id = {$_SESSION["empleado_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
+else{
+    header("Location: index.php");
+}
+if(!$user["estado"] == 1){
+    session_destroy();
+    setcookie("username", "", time() -3600);
+    setcookie("password", "", time() -3600);
+    header("Location: index.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +71,7 @@ require("authentication.php");
                     <span class="tooltip">Reportes</span>
                 </li>
                 <li>
-                    <a href="usuarios.php">
+                    <a href="#">
                         <i class='bx bxs-user-account'></i>
                         <span>Usuarios</span>
                     </a>
@@ -67,20 +86,7 @@ require("authentication.php");
         include("includes/header.php");
         ?>
         <div class="content">
-            <div class="welcome">
-                <h1>Bienvenido al sistema de inventarios de MGR</h1>
-                <h2>Menu principal</h2>
-            </div>
-                <div class="container">
-                    <?php include("includes\home-inventory.php"); ?>
-                    <?php include("includes\home-report.php");?>
-                    <a class="item-container" href="usuarios.php">
-                        <img src="assets/images/userAdmin.png" alt="icon image">
-                        <h2>Administrar usuarios</h2>
-                        <p>Acceso al control completo sobre perfiles en la plataforma.</p>
-                    </a>
-                    <?php include("includes\home-settings.php"); ?>
-                </div>
+            <!---------------------THE CONTENT GOES HERE------------------------------>
         </div>
     </div>
 <!---------------------------------------------- For inventory ------------------------------------------------>

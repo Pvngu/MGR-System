@@ -1,5 +1,9 @@
 <?php
 require("authentication.php");
+if($user["tipo_cuenta"] !== "administrador"){
+    header("Location: home.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -7,9 +11,9 @@ require("authentication.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MGR - Admin</title>
+    <title>MGR - Usuarios</title>
     <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/usuarios.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- google font -->
@@ -18,8 +22,6 @@ require("authentication.php");
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php if($user["tipo_cuenta"] == "administrador"){ ?>
-    <!---------------------------------------------- For admin ------------------------------------------------>
     <div class="sidebar">
         <div class="logoContent">
             <div class="logo">
@@ -52,7 +54,7 @@ require("authentication.php");
                     <span class="tooltip">Reportes</span>
                 </li>
                 <li>
-                    <a href="usuarios.php">
+                    <a href="#">
                         <i class='bx bxs-user-account'></i>
                         <span>Usuarios</span>
                     </a>
@@ -67,116 +69,56 @@ require("authentication.php");
         include("includes/header.php");
         ?>
         <div class="content">
-            <div class="welcome">
-                <h1>Bienvenido al sistema de inventarios de MGR</h1>
-                <h2>Menu principal</h2>
-            </div>
-                <div class="container">
-                    <?php include("includes\home-inventory.php"); ?>
-                    <?php include("includes\home-report.php");?>
-                    <a class="item-container" href="usuarios.php">
-                        <img src="assets/images/userAdmin.png" alt="icon image">
-                        <h2>Administrar usuarios</h2>
-                        <p>Acceso al control completo sobre perfiles en la plataforma.</p>
-                    </a>
-                    <?php include("includes\home-settings.php"); ?>
-                </div>
+            <!---------------------manage users------------------------------>
+            <h1>Usuarios</h1>
+            <button id = "addButton">Añadir usuario</button>
+            <table class = "content-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Tipo de cuenta</th>
+                        <th>Contraseña</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $mysqli = require __DIR__ . "/scripts/database.php";
+
+                    $sql = "SELECT * FROM empleados";
+                    $result = $mysqli->query($sql);
+                    if(!$result){
+                        die("Invalid query: " . $mysqli->error);
+                    }
+                    
+                    while($row = $result->fetch_assoc()){
+                        echo "
+                        <tr>
+                        <td>$row[empleado_id]</td>
+                        <td>$row[nombre_usuario]</td>
+                        <td>$row[nombre]</td>
+                        <td>$row[tipo_cuenta]</td>
+                        <td>$row[password]</td>
+                        <td>$row[estado]</td>
+                        <td>
+                            <a href='#'>
+                                <i class='bx bxs-edit-alt'></i>
+                            </a>
+                            <a href='#'>
+                                <i class='bx bx-trash'></i>
+                            </a>
+                        </td>
+                    </tr>
+                        ";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
-<!---------------------------------------------- For inventory ------------------------------------------------>
-    <?php } elseif($user["tipo_cuenta"] == "inventario") { ?>
-    <div class="sidebar">
-        <div class="logoContent">
-            <div class="logo">
-                <span>MGR MAQUINADOS</span>
-                <i class='bx bx-menu' id="btn"></i>
-            </div>
-        </div>
-        <ul class="nameList">
-            <div class="topItems">
-                <div class="itemsHeader">Menu</div>
-                <li>
-                    <a href="home.php">
-                        <i class='bx bx-home-alt-2'></i>
-                        <span>Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-table'></i>
-                        <span>Inventario</span>
-                    </a>
-                    <span class="tooltip">Inventario</span>
-                </li>
-            </div>
-            <?php include("includes\sidebar-bottomItems.php") ?>
-        </ul>
-    </div>
-    <div class="home">
-        <?php
-            include("includes/header.php");
-        ?>
-        <div class="content">
-            <div class="welcome">
-                <h1>Bienvenido al sistema de inventarios de MGR</h1>
-                <h2>Menu principal</h2>
-            </div>
-                <div class="container">
-                    <?php include("includes\home-inventory.php");?>
-                    <?php include("includes\home-settings.php"); ?>
-                </div>
-        </div>
-    </div>
-<!---------------------------------------------- For report ------------------------------------------------>
-    <?php } elseif($user["tipo_cuenta"] == "reporte") { ?>
-        <div class="sidebar">
-        <div class="logoContent">
-            <div class="logo">
-                <span>MGR MAQUINADOS</span>
-                <i class='bx bx-menu' id="btn"></i>
-            </div>
-        </div>
-        <ul class="nameList">
-            <div class="topItems">
-                <div class="itemsHeader">Menu</div>
-                <li>
-                    <a href="home.php">
-                        <i class='bx bx-home-alt-2'></i>
-                        <span>Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bxs-edit' ></i>
-                        <span>Reportes</span>
-                    </a>
-                    <span class="tooltip">Reportes</span>
-                </li>
-            </div>
-            <?php include("includes\sidebar-bottomItems.php") ?>
-        </ul>
-    </div>
-    <div class="home">
-        <?php
-            include("includes/header.php");
-        ?>
-        <div class="content">
-            <div class="welcome">
-                <h1>Bienvenido al sistema de inventarios de MGR</h1>
-                <h2>Menu principal</h2>
-            </div>
-            <div class="container">
-                <?php include("includes\home-report.php");?>
-                <?php include("includes\home-settings.php"); ?>
-            </div>
-        </div>
-        <?php
-            include("includes\sidebar_views.php");
-        ?>
-    </div>
-    <?php } ?>
 
     <?php
         include("includes\sidebar_views.php");

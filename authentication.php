@@ -9,4 +9,15 @@ if(isset($_SESSION["empleado_id"])){
 
     $user = $result->fetch_assoc();
 }
+else{
+    header("Location: index.php");
+}
+// user status authentication
+if(!$user["estado"] == 1){
+    session_destroy();
+    setcookie("username", "", time() -3600);
+    setcookie("password", "", time() -3600);
+    header("Location: index.php");
+    exit;
+}
 ?>
