@@ -51,7 +51,7 @@
             <li>
                 <i class='bx bx-hash'></i>
                 <span>ID del usuario: <?= $user["empleado_id"] ?></span>
-            </li>Acerca de la página
+            </li>
             <li>
                 <i class='bx bx-user'></i>
                 <span>Nombre: <?= $user["nombre"] ?></span>

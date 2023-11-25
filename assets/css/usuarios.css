@@ -69,9 +69,18 @@ table thead{
     font-size: 1.1em;
     font-weight: 500;
     float: right;
-    margin-right: 60px;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.content-header{
+    margin-inline: 40px;
+}
+
+@media (max-width: 980px){
+    .content-header{
+        margin-inline: 0;
+    }
 }
 
 .table-container{
@@ -103,6 +112,7 @@ table thead{
     height: 28px;
     color: var(--c-text-primary);
     padding-inline: 10px;
+    width: 190px;
 }
 
 .userModalBtn{
@@ -114,4 +124,14 @@ table thead{
     background-color: #0471FF;
     color: #fff;
     font-weight: 500;
+}
+
+.rolSelector{
+    background-color: var(--c-bg-sidebar);
+    border: 1px solid var(--c-border-primary);
+    border-radius: 6px;
+    height: 28px;
+    color: var(--c-text-primary);
+    padding-inline: 10px;
+    width: 190px;
 }

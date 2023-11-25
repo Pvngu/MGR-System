@@ -144,7 +144,11 @@ if($user["tipo_cuenta"] !== "administrador"){
                         </div>
                         <div class="box-item">
                             <label>Tipo de cuenta</label><br>
-                            <input name="createRol" type="text">
+                            <select name="rolSelector" class = "rolSelector">
+                                <option value="administrador">Administrador</option>
+                                <option value="inventario">Inventario</option>
+                                <option value="operador">Operador</option>
+                            </select>
                         </div>
                     </div>
                     <input type="submit" value="Crear" class = "userModalBtn">
@@ -174,7 +178,11 @@ if($user["tipo_cuenta"] !== "administrador"){
                         </div>
                         <div class="box-item">
                             <label>Tipo de cuenta</label><br>
-                            <input name="editRol">
+                            <select name="updateRolSelector" class = "rolSelector">
+                                <option value="administrador">Administrador</option>
+                                <option value="inventario">Inventario</option>
+                                <option value="operador">Operador</option>
+                            </select>
                         </div>
                     </div>
                     <input type="submit" value="crear" class = "userModalBtn">
