@@ -29,7 +29,7 @@ $is_notActivate = false;
         $is_notActivate = true;
       }
       else{
-      if(password_verify($_POST["password"], $user["password"])){
+      if($_POST["password"] === $user["password"]){
         session_start();
         session_regenerate_id();
         $_SESSION["empleado_id"] = $user["empleado_id"];

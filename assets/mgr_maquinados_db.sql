@@ -55,6 +55,7 @@ CREATE TABLE pedidos (
 
 -- Insert data into the tables
 INSERT INTO empleados (nombre, nombre_usuario, tipo_cuenta, estado)
-VALUES ("cacahuate07", "Peanut Butter", "administrador", 1), 
-       ("mermelada15", "Strawberry jelly", "inventario", 1),
-       ("pan007", "Bread west", "reporte", 1);
+VALUES ("Peanut Butter", "cacahuate07", "administrador", 1), 
+       ("Strawberry jelly", "mermelada15", "inventario", 1),
+       ("Bread west", "pan007", "reporte", 1),
+       ("Stuart the little rat", "pipi16", "administrador", 0);

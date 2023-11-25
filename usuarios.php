@@ -12,8 +12,8 @@ if($user["tipo_cuenta"] !== "administrador"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGR - Usuarios</title>
-    <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/usuarios.css">
+    <link rel="stylesheet" href="assets/css/usuarios.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="assets/css/sidebar.css?<?php echo time(); ?>">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- google font -->
@@ -70,16 +70,19 @@ if($user["tipo_cuenta"] !== "administrador"){
         ?>
         <div class="content">
             <!---------------------manage users------------------------------>
-            <h1>Usuarios</h1>
-            <button id = "addButton">Añadir usuario</button>
+            <div class="content-header">
+                <h1>Usuarios</h1>
+                <button id = "addButton" class="openModalCU">Añadir usuario</button>
+            </div>
+            <div class = "table-container">
             <table class = "content-table">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Usuario</th>
                         <th>Nombre</th>
-                        <th>Tipo de cuenta</th>
                         <th>Contraseña</th>
+                        <th>Tipo de cuenta</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -100,14 +103,14 @@ if($user["tipo_cuenta"] !== "administrador"){
                         <td>$row[empleado_id]</td>
                         <td>$row[nombre_usuario]</td>
                         <td>$row[nombre]</td>
-                        <td>$row[tipo_cuenta]</td>
                         <td>$row[password]</td>
+                        <td>$row[tipo_cuenta]</td>
                         <td>$row[estado]</td>
                         <td>
-                            <a href='#'>
+                            <a href='' class = 'openModalEU'>
                                 <i class='bx bxs-edit-alt'></i>
                             </a>
-                            <a href='#'>
+                            <a href='deleteUser.php?id=$row[empleado_id]'>
                                 <i class='bx bx-trash'></i>
                             </a>
                         </td>
@@ -117,6 +120,63 @@ if($user["tipo_cuenta"] !== "administrador"){
                     ?>
                 </tbody>
             </table>
+            </div>
+            <!-- Create user -->
+        <dialog class="createUserModal modal">
+            <div class="modalHeader">
+                <h1>Crear usuario</h1>
+                <i class='bx bx-x closeBtnModalCU modalX'></i>
+            </div>
+            <div class="modalContent CUModal">
+                <form method="post" action="createUser.php">
+                    <div>
+                        <label>Nombre de usuario: </label>
+                        <input name="createUsername">
+                    </div>
+                    <div>
+                        <label>Nombre: </label>
+                        <input name="createName">
+                    </div>
+                    <div>
+                        <label>Contraseña: </label>
+                        <input name="createPassword">
+                    </div>
+                    <div>
+                        <label>Tipo de cuenta: </label>
+                        <input name="createRol">
+                    </div>
+                    <input type="submit" value="Agregar">
+                </form>
+            </div>
+        </dialog>
+                <!-- Edit user -->
+        <dialog class="editUserModal modal">
+            <div class="modalHeader">
+                <h1>Editar usuario</h1>
+                <i class='bx bx-x closeBtnModalEU modalX'></i>
+            </div>
+            <div class="modalContent EUModal">
+                <form id="addUser">
+                    <div>
+                        <label for="addUserName">Nombre de usuario: </label>
+                        <input id="addUserName" name="editUsername">
+                    </div>
+                    <div>
+                        <label for="addUser">Nombre: </label>
+                        <input id="addUser" name="editName">
+                    </div>
+                    <div>
+                        <label for="addPassword">Contraseña: </label>
+                        <input id="addPassword" name="editPassword">
+                    </div>
+                    <div>
+                        <label for="addPassword">Tipo de cuenta: </label>
+                        <input id="addPassword" name="editRol">
+                    </div>
+                    <input type="submit" value="Agregar">
+                </form>
+            </div>
+        </dialog>
         </div>
     </div>
 
@@ -181,6 +241,32 @@ if($user["tipo_cuenta"] !== "administrador"){
     closeButtonAS.addEventListener("click", () => {
         modalAS.close();
     })
+
+        //Create user window
+        const closeButtonCU = document.querySelector(".closeBtnModalCU");
+        const modalCU = document.querySelector(".createUserModal");
+        const openButtonCU = document.querySelector(".openModalCU")
+        openButtonCU.addEventListener("click", () => {
+            modalCU.showModal();
+        })
+
+        closeButtonCU.addEventListener("click", () => {
+            modalCU.close();
+        })
+
+                //Edit user windows
+        const closeButtonEU = document.querySelector(".closeBtnModalEU");
+        const modalEU = document.querySelector(".editUserModal");
+        const openButtonEU = document.querySelector(".openModalEU")
+        openButtonEU.addEventListener("click", () => {
+            modalEU.showModal();
+        })
+
+        closeButtonEU.addEventListener("click", () => {
+            modalEU.close();
+        })
+    
+    
 
     ////Theme switcher slider
     var html = document.getElementsByTagName('html');

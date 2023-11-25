@@ -27,6 +27,7 @@
 
 .content {
     margin: 0 40px;
+
 }
 
 table{
@@ -68,5 +69,11 @@ table thead{
     font-weight: 500;
     float: right;
     margin-right: 60px;
-    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.table-container{
+    clear: right;
+    overflow-x: auto;
 }

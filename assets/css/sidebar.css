@@ -241,6 +241,7 @@ header .bizName{
     font-weight: 400;
     text-align: center;
     text-transform: uppercase;
+    padding: 0;
 }
 
 .modalX{
