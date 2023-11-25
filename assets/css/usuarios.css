@@ -49,6 +49,7 @@ table th, table td{
 
 table tbody tr{
     border-bottom: 1px solid var(--c-border-primary);
+    transition: all 0.5s ease;
 }
 
 table tbody tr:nth-of-type(even){
@@ -76,4 +77,41 @@ table thead{
 .table-container{
     clear: right;
     overflow-x: auto;
+}
+
+.actions a{
+    text-decoration: none;
+    color: var(--c-text-primary);
+    margin-inline: 3px;
+}
+
+.input-boxes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--c-text-primary);
+}
+
+.input-boxes .box-item{
+    margin-bottom: 25px;
+}
+
+.input-boxes .box-item input{
+    background-color: var(--c-bg-sidebar);
+    border: 1px solid var(--c-border-primary);
+    border-radius: 6px;
+    height: 28px;
+    color: var(--c-text-primary);
+    padding-inline: 10px;
+}
+
+.userModalBtn{
+    border: none;
+    padding: 10px 25px;
+    float: right;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background-color: #0471FF;
+    color: #fff;
+    font-weight: 500;
 }

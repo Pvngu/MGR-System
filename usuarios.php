@@ -72,7 +72,7 @@ if($user["tipo_cuenta"] !== "administrador"){
             <!---------------------manage users------------------------------>
             <div class="content-header">
                 <h1>Usuarios</h1>
-                <button id = "addButton" class="openModalCU">Añadir usuario</button>
+                <button id = "addButton" class="openModalCU">Crear usuario</button>
             </div>
             <div class = "table-container">
             <table class = "content-table">
@@ -100,21 +100,21 @@ if($user["tipo_cuenta"] !== "administrador"){
                     while($row = $result->fetch_assoc()){
                         echo "
                         <tr>
-                        <td>$row[empleado_id]</td>
-                        <td>$row[nombre_usuario]</td>
-                        <td>$row[nombre]</td>
-                        <td>$row[password]</td>
-                        <td>$row[tipo_cuenta]</td>
-                        <td>$row[estado]</td>
-                        <td>
-                            <a href='' class = 'openModalEU'>
-                                <i class='bx bxs-edit-alt'></i>
-                            </a>
-                            <a href='deleteUser.php?id=$row[empleado_id]'>
-                                <i class='bx bx-trash'></i>
-                            </a>
-                        </td>
-                    </tr>
+                            <td>$row[empleado_id]</td>
+                            <td>$row[nombre_usuario]</td>
+                            <td>$row[nombre]</td>
+                            <td>$row[password]</td>
+                            <td>$row[tipo_cuenta]</td>
+                            <td>$row[estado]</td>
+                            <td class = 'actions'>
+                                <a href='#' class = 'openModalEU'>
+                                    <i class='bx bxs-edit-alt'></i>
+                                </a>
+                                <a href='deleteUser.php?id=$row[empleado_id]'>
+                                    <i class='bx bx-trash'></i>
+                                </a>
+                            </td>
+                        </tr>
                         ";
                     }
                     ?>
@@ -129,23 +129,25 @@ if($user["tipo_cuenta"] !== "administrador"){
             </div>
             <div class="modalContent CUModal">
                 <form method="post" action="createUser.php">
-                    <div>
-                        <label>Nombre de usuario: </label>
-                        <input name="createUsername">
+                    <div class = "input-boxes">
+                        <div class="box-item">
+                            <label>Nombre de usuario</label><br>
+                            <input name="createUsername" type="text">
+                        </div>
+                        <div class="box-item">
+                            <label>Nombre</label><br>
+                            <input name="createName" type="text">
+                        </div>
+                        <div class="box-item">
+                            <label>Contraseña</label><br>
+                            <input name="createPassword" type="password">
+                        </div>
+                        <div class="box-item">
+                            <label>Tipo de cuenta</label><br>
+                            <input name="createRol" type="text">
+                        </div>
                     </div>
-                    <div>
-                        <label>Nombre: </label>
-                        <input name="createName">
-                    </div>
-                    <div>
-                        <label>Contraseña: </label>
-                        <input name="createPassword">
-                    </div>
-                    <div>
-                        <label>Tipo de cuenta: </label>
-                        <input name="createRol">
-                    </div>
-                    <input type="submit" value="Agregar">
+                    <input type="submit" value="Crear" class = "userModalBtn">
                 </form>
             </div>
         </dialog>
@@ -156,24 +158,26 @@ if($user["tipo_cuenta"] !== "administrador"){
                 <i class='bx bx-x closeBtnModalEU modalX'></i>
             </div>
             <div class="modalContent EUModal">
-                <form id="addUser">
-                    <div>
-                        <label for="addUserName">Nombre de usuario: </label>
-                        <input id="addUserName" name="editUsername">
+                <form>
+                    <div class="input-boxes">
+                        <div class="box-item">
+                            <label>Nombre de usuario</label><br>
+                            <input name="editUsername" value = "xd">
+                        </div>
+                        <div class="box-item">
+                            <label>Nombre</label><br>
+                            <input name="editName">
+                        </div>
+                        <div class="box-item">
+                            <label>Contraseña</label><br>
+                            <input name="editPassword">
+                        </div>
+                        <div class="box-item">
+                            <label>Tipo de cuenta</label><br>
+                            <input name="editRol">
+                        </div>
                     </div>
-                    <div>
-                        <label for="addUser">Nombre: </label>
-                        <input id="addUser" name="editName">
-                    </div>
-                    <div>
-                        <label for="addPassword">Contraseña: </label>
-                        <input id="addPassword" name="editPassword">
-                    </div>
-                    <div>
-                        <label for="addPassword">Tipo de cuenta: </label>
-                        <input id="addPassword" name="editRol">
-                    </div>
-                    <input type="submit" value="Agregar">
+                    <input type="submit" value="crear" class = "userModalBtn">
                 </form>
             </div>
         </dialog>
@@ -254,14 +258,15 @@ if($user["tipo_cuenta"] !== "administrador"){
             modalCU.close();
         })
 
-                //Edit user windows
+        //Edit user windows
         const closeButtonEU = document.querySelector(".closeBtnModalEU");
         const modalEU = document.querySelector(".editUserModal");
-        const openButtonEU = document.querySelector(".openModalEU")
-        openButtonEU.addEventListener("click", () => {
+        const openButtonEU = document.querySelectorAll(".openModalEU")
+        for(i = 0; i < openButtonEU.length; i++){
+            openButtonEU[i].addEventListener("click", () => {
             modalEU.showModal();
         })
-
+        }
         closeButtonEU.addEventListener("click", () => {
             modalEU.close();
         })

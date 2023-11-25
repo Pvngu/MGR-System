@@ -1,7 +1,6 @@
 <?php
 $queryFail = $querySuccess = false;
 $createUsername = $createName = $createPassword = $createRol = "";
-
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         extract($_POST);
         $mysqli = require __DIR__ . "/scripts/database.php";
@@ -10,7 +9,6 @@ $createUsername = $createName = $createPassword = $createRol = "";
         header("Location: usuarios.php");
         if(!$result) {
              $queryFail = true;
-             die("ERRORRRRR");
          }
          else{
              $querySuccess = true;

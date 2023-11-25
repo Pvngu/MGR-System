@@ -8,7 +8,7 @@ USE mgr_maquinados_db;
 CREATE TABLE empleados (
     empleado_id SMALLINT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(128),
-    nombre_usuario VARCHAR(32),
+    nombre_usuario VARCHAR(32) UNIQUE,
     password VARCHAR(255),
     tipo_cuenta VARCHAR(20),
     estado BIT
@@ -57,5 +57,5 @@ CREATE TABLE pedidos (
 INSERT INTO empleados (nombre, nombre_usuario, tipo_cuenta, estado)
 VALUES ("Peanut Butter", "cacahuate07", "administrador", 1), 
        ("Strawberry jelly", "mermelada15", "inventario", 1),
-       ("Bread west", "pan007", "reporte", 1),
+       ("Ben the cow", "pan007", "reporte", 1),
        ("Stuart the little rat", "pipi16", "administrador", 0);
