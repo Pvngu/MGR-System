@@ -9,6 +9,7 @@
     --c-bg-button: #fff;
     --c-bg-button-secondary: #e4e4e4;
     --c-bg-sb-icon: #F0F2F4;
+    --c-bg-tb-even: #f3f3f3;
   }
   :root.dark-theme {
     --c-text-primary: #cbd6e2;
@@ -21,6 +22,7 @@
     --c-bg-button: #494a50;
     --c-bg-button-secondary: #eee;
     --c-bg-sb-icon: #2e2f33;
+    --c-bg-tb-even: #374151;
   }
 
 *{

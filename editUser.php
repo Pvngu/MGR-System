@@ -25,8 +25,9 @@ if(isset($_POST['editUserSubmit'])) {
     $editUsername = filter_input(INPUT_POST, "editUsername", FILTER_SANITIZE_SPECIAL_CHARS);
     $editPassword = filter_input(INPUT_POST, "editPassword", FILTER_SANITIZE_SPECIAL_CHARS);
     $editRol = $_POST["editRol"];
+    $editState = $_POST["editState"];
     
-    $sql2 = "UPDATE empleados SET nombre = '$editName', nombre_usuario = '$editUsername', password = '$editPassword', tipo_cuenta = '$editRol' WHERE empleado_id = $editId";
+    $sql2 = "UPDATE empleados SET nombre = '$editName', nombre_usuario = '$editUsername', password = '$editPassword', tipo_cuenta = '$editRol', estado = $editState WHERE empleado_id = $editId";
     $result2 = mysqli_query($mysqli, $sql2);
     if(!$result2){
         $queryFail = true;

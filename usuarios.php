@@ -83,8 +83,8 @@ if($user["tipo_cuenta"] !== "administrador"){
                         <th>Nombre</th>
                         <th>Contraseña</th>
                         <th>Tipo de cuenta</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+                        <th class = "center-cell">Estado</th>
+                        <th class = "center-cell">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,6 +98,8 @@ if($user["tipo_cuenta"] !== "administrador"){
                     }
                     
                     while($row = $result->fetch_assoc()){
+                        $status = $row['estado'] == 1 ? 'Activado' : 'Desactivado';
+                        $statusBackground = $row['estado'] == 1 ? 'status-active' : 'status-deactive';
                         echo "
                         <tr>
                             <td class = 'userID'>$row[empleado_id]</td>
@@ -105,8 +107,8 @@ if($user["tipo_cuenta"] !== "administrador"){
                             <td>$row[nombre]</td>
                             <td>$row[password]</td>
                             <td>$row[tipo_cuenta]</td>
-                            <td>$row[estado]</td>
-                            <td class = 'actions'>
+                            <td class = 'center-cell'><span class = '$statusBackground'>$status</span></td>
+                            <td class = 'actions center-cell'>
                                 <a class = 'openModalEU edit_data'>
                                     <i class='bx bxs-edit-alt' style = 'color: #2a8c3f'></i>
                                 </a>
@@ -147,7 +149,7 @@ if($user["tipo_cuenta"] !== "administrador"){
                             <select name="createRol" class = "rolSelector">
                                 <option value="administrador">Administrador</option>
                                 <option value="inventario">Inventario</option>
-                                <option value="operador">Operador</option>
+                                <option value="reporte">Reporte</option>
                             </select>
                         </div>
                     </div>
@@ -182,9 +184,16 @@ if($user["tipo_cuenta"] !== "administrador"){
                             <select name="editRol" class = "rolSelector" id ="rol">
                                 <option value="administrador">Administrador</option>
                                 <option value="inventario">Inventario</option>
-                                <option value="operador">Operador</option>
+                                <option value="reporte">Reporte</option>
                             </select>
                         </div>
+                        <div class="box-item">
+                        <label>Estado de cuenta</label><br>
+                        <select name="editState" class = "rolSelector" id ="state">
+                                <option value=1>Activado</option>
+                                <option value=0>Desactivado</option>
+                            </select>
+                    </div>
                     </div>
                     <input type="submit" name="editUserSubmit" class = "userModalBtn" value="editar">
                 </form>
@@ -243,6 +252,7 @@ if($user["tipo_cuenta"] !== "administrador"){
                         $('#username').val(value['nombre_usuario']);
                         $('#password').val(value['password']);
                         $('#rol').val(value['tipo_cuenta']);
+                        $('#state').val(value['estado']);
                     });
                     modalEU.showModal();
                 }
