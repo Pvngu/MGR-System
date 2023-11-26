@@ -30,36 +30,9 @@ require("authentication.php");
         <ul class="nameList">
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
-                <li>
-                    <a href="home.php">
-                        <i class='bx bx-home-alt-2'></i>
-                        <span>Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-table'></i>
-                        <span>Inventario</span>
-                    </a>
-                    <span class="tooltip">Inventario</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bxs-edit' ></i>
-                        <span>Reportes</span>
-                    </a>
-                    <span class="tooltip">Reportes</span>
-                </li>
-                <li>
-                    <a href="usuarios.php">
-                        <i class='bx bxs-user-account'></i>
-                        <span>Usuarios</span>
-                    </a>
-                    <span class="tooltip">Usuarios</span>
-                </li>
-            </div>
-            <?php include("includes\sidebar-bottomItems.php") ?>
+                    <?php include("includes/sidebar-admin.php"); ?>
+                </div>
+            <?php include("includes/sidebar-bottomItems.php") ?>
         </ul>
     </div>
     <div class="home">
@@ -72,14 +45,14 @@ require("authentication.php");
                 <h2>Menu principal</h2>
             </div>
                 <div class="container">
-                    <?php include("includes\home-inventory.php"); ?>
-                    <?php include("includes\home-report.php");?>
+                    <?php include("includes/home-inventory.php"); ?>
+                    <?php include("includes/home-report.php");?>
                     <a class="item-container" href="usuarios.php">
                         <img src="assets/images/userAdmin.png" alt="icon image">
                         <h2>Administrar usuarios</h2>
                         <p>Acceso al control completo sobre perfiles en la plataforma.</p>
                     </a>
-                    <?php include("includes\home-settings.php"); ?>
+                    <?php include("includes/home-settings.php"); ?>
                 </div>
         </div>
     </div>
@@ -95,21 +68,8 @@ require("authentication.php");
         <ul class="nameList">
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
-                <li>
-                    <a href="home.php">
-                        <i class='bx bx-home-alt-2'></i>
-                        <span>Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-table'></i>
-                        <span>Inventario</span>
-                    </a>
-                    <span class="tooltip">Inventario</span>
-                </li>
-            </div>
+                    <?php include("includes/sidebar-inventory.php"); ?>
+                </div>
             <?php include("includes\sidebar-bottomItems.php") ?>
         </ul>
     </div>
@@ -140,21 +100,8 @@ require("authentication.php");
         <ul class="nameList">
             <div class="topItems">
                 <div class="itemsHeader">Menu</div>
-                <li>
-                    <a href="home.php">
-                        <i class='bx bx-home-alt-2'></i>
-                        <span>Home</span>
-                    </a>
-                    <span class="tooltip">Home</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bxs-edit' ></i>
-                        <span>Reportes</span>
-                    </a>
-                    <span class="tooltip">Reportes</span>
-                </li>
-            </div>
+                    <?php include("includes/sidebar-report.php"); ?>
+                </div>
             <?php include("includes\sidebar-bottomItems.php") ?>
         </ul>
     </div>

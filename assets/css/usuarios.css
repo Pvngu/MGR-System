@@ -122,10 +122,10 @@ table thead{
 
 .status-active{
     color: #fff;
-    background: green;
+    background: darkgreen;
 }
 
 .status-deactive{
     color: #fff;
-    background: red;
+    background: #f44336;
 }

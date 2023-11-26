@@ -1,6 +1,6 @@
 <?php
 require("authentication.php");
-if($user["tipo_cuenta"] !== "administrador"){
+if($user["tipo_cuenta"] !== "inventario" && $user["tipo_cuenta"] !== "administrador"){
     header("Location: home.php");
     exit;
 }
@@ -22,6 +22,7 @@ if($user["tipo_cuenta"] !== "administrador"){
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="sidebar">
         <div class="logoContent">
             <div class="logo">
@@ -31,10 +32,16 @@ if($user["tipo_cuenta"] !== "administrador"){
         </div>
         <ul class="nameList">
             <div class="topItems">
+            <?php if($user["tipo_cuenta"] == "administrador") { ?>
                 <div class="itemsHeader">Menu</div>
-                <?php include("includes/sidebar-admin.php"); ?>
+                    <?php include("includes/sidebar-admin.php"); ?>
                 </div>
-            <?php include("includes\sidebar-bottomItems.php") ?>
+
+            <?php } elseif($user["tipo_cuenta"] == "inventario") { ?>
+                <div class="itemsHeader">Menu</div>
+                    <?php include("includes/sidebar-inventory.php"); ?>
+                </div>
+            <?php } include("includes/sidebar-bottomItems.php") ?>
         </ul>
     </div>
     <div class="home">
@@ -42,50 +49,51 @@ if($user["tipo_cuenta"] !== "administrador"){
         include("includes/header.php");
         ?>
         <div class="content">
-            <!---------------------manage users------------------------------>
+            <!---------------------Inventory table------------------------------>
             <div class="content-header">
-                <h1>Usuarios</h1>
-                <button id = "addButton" class="openModalCU">Crear usuario</button>
+                <h1>Inventario</h1>
+                <button id = "addButton" class="openModalCU">Agregar</button>
             </div>
             <div class = "table-container">
             <table class = "content-table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Usuario</th>
-                        <th>Nombre</th>
-                        <th>Contraseña</th>
-                        <th>Tipo de cuenta</th>
-                        <th class = "center-cell">Estado</th>
-                        <th class = "center-cell">Acciones</th>
+                        <th>id</th>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th class = 'center-cell'>Stock Inicial</th>
+                        <th class = 'center-cell'>Stock Actual</th>
+                        <th class = 'center-cell'>Categoria</th>
+                        <th class = 'center-cell'>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $mysqli = require __DIR__ . "/scripts/database.php";
 
-                    $sql = "SELECT * FROM empleados";
+                    $sql = "SELECT inventario.articulo_id, articulo.articulo_codigo, articulo.descripcion, inventario.stock_inicial, inventario.stock_actual, inventario.categoria 
+                    FROM inventario 
+                    INNER JOIN articulo
+                    ON inventario.articulo_codigo = articulo.articulo_codigo";
                     $result = $mysqli->query($sql);
                     if(!$result){
                         die("Invalid query: " . $mysqli->error);
                     }
                     
                     while($row = $result->fetch_assoc()){
-                        $status = $row['estado'] == 1 ? 'Activado' : 'Desactivado';
-                        $statusBackground = $row['estado'] == 1 ? 'status-active' : 'status-deactive';
                         echo "
                         <tr>
-                            <td class = 'userID'>$row[empleado_id]</td>
-                            <td>$row[nombre_usuario]</td>
-                            <td>$row[nombre]</td>
-                            <td>$row[password]</td>
-                            <td>$row[tipo_cuenta]</td>
-                            <td class = 'center-cell'><span class = '$statusBackground'>$status</span></td>
+                            <td>$row[articulo_id]</td>
+                            <td>$row[articulo_codigo]</td>
+                            <td>$row[descripcion]</td>
+                            <td class = 'center-cell'>$row[stock_inicial]</td>
+                            <td class = 'center-cell'>$row[stock_actual]</td>
+                            <td class = 'center-cell'>$row[categoria]</td>
                             <td class = 'actions center-cell'>
-                                <a class = 'openModalEU edit_data'>
+                                <a class = '#'>
                                     <i class='bx bxs-edit-alt' style = 'color: #2a8c3f'></i>
                                 </a>
-                                <a href='deleteUser.php?id=$row[empleado_id]'>
+                                <a href='deleteItem.php?id=$row[articulo_id]'>
                                     <i class='bx bx-trash' style = 'color: #fa7878'></i>
                                 </a>
                             </td>
@@ -96,33 +104,37 @@ if($user["tipo_cuenta"] !== "administrador"){
                 </tbody>
             </table>
             </div>
-            <!-- Create user -->
+            <!-- Add new product -->
         <dialog class="createUserModal modal">
             <div class="modalHeader">
-                <h1>Crear usuario</h1>
+                <h1>Agregar producto</h1>
                 <i class='bx bx-x closeBtnModalCU modalX'></i>
             </div>
             <div class="modalContent CUModal">
-                <form method="post" action="createUser.php">
+                <form method="post" action="addItem.php">
                     <div class = "input-boxes">
                         <div class="box-item">
-                            <label>Nombre de usuario</label><br>
-                            <input name="createUsername" type="text">
+                            <label>Codigo</label><br>
+                            <input name="addCode" type="text">
                         </div>
                         <div class="box-item">
-                            <label>Nombre</label><br>
-                            <input name="createName" type="text">
+                            <label>Descripcion</label><br>
+                            <input name="addDescription" type="text">
                         </div>
                         <div class="box-item">
-                            <label>Contraseña</label><br>
-                            <input name="createPassword" type="password">
+                            <label>Stock Inicial</label><br>
+                            <input name="addInitialStock" type="text">
                         </div>
                         <div class="box-item">
-                            <label>Tipo de cuenta</label><br>
-                            <select name="createRol" class = "rolSelector">
-                                <option value="administrador">Administrador</option>
-                                <option value="inventario">Inventario</option>
-                                <option value="reporte">Reporte</option>
+                            <label>Stock Actual</label><br>
+                            <input name="addActualStock" type="text">
+                        </div>
+                        <div class="box-item">
+                            <label>Categoria</label><br>
+                            <select name="addCategory" class = "rolSelector">
+                                <option value="A">Categoria A</option>
+                                <option value="B">Categoria B</option>
+                                <option value="C">Categoria C</option>
                             </select>
                         </div>
                     </div>
@@ -133,31 +145,35 @@ if($user["tipo_cuenta"] !== "administrador"){
                 <!-- Edit user -->
         <dialog class="editUserModal modal">
             <div class="modalHeader">
-                <h1>Editar usuario</h1>
+                <h1>Editar articulos</h1>
                 <i class='bx bx-x closeBtnModalEU modalX'></i>
             </div>
             <div class="modalContent EUModal" id="myModal">
-                <form method="post" action="editUser.php">
+                <form method="post" action="editItem.php">
                     <div class="input-boxes">
                         <input type="hidden" name="editId" id="id">
                         <div class="box-item">
-                            <label>Nombre de usuario</label><br>
-                            <input name="editUsername" id="username" value = "">
+                            <label>Codigo</label><br>
+                            <input name="editCode" id="code" value = "">
                         </div>
                         <div class="box-item">
-                            <label>Nombre</label><br>
-                            <input name="editName" id="name">
+                            <label>Descripcion</label><br>
+                            <input name="editDes" id="description">
                         </div>
                         <div class="box-item">
-                            <label>Contraseña</label><br>
-                            <input name="editPassword" id="password">
+                            <label>Stock Inicial</label><br>
+                            <input name="editInitialStock" id="initialStock">
+                        </div>
+                        <div class="box-item">
+                            <label>Stock Actual</label><br>
+                            <input name="editActualStock" id="actualStock">
                         </div>
                         <div class="box-item">
                             <label>Tipo de cuenta</label><br>
-                            <select name="editRol" class = "rolSelector" id ="rol">
-                                <option value="administrador">Administrador</option>
-                                <option value="inventario">Inventario</option>
-                                <option value="reporte">Reporte</option>
+                            <select name="editCat" class = "rolSelector" id ="cat">
+                                <option value="A">Categoria A</option>
+                                <option value="B">Categoria B</option>
+                                <option value="C">Categoria C</option>
                             </select>
                         </div>
                         <div class="box-item">
@@ -165,7 +181,7 @@ if($user["tipo_cuenta"] !== "administrador"){
                         <select name="editState" class = "rolSelector" id ="state">
                                 <option value=1>Activado</option>
                                 <option value=0>Desactivado</option>
-                            </select>
+                        </select>
                     </div>
                     </div>
                     <input type="submit" name="editUserSubmit" class = "userModalBtn" value="editar">
@@ -213,19 +229,18 @@ if($user["tipo_cuenta"] !== "administrador"){
 
             $.ajax({
                 method: "POST",
-                url: "editUser.php",
+                url: "editItem.php",
                 data: {
                     'click_edit_btn': true,
                     'user_id': user_id,
                 },
                 success: function (response) {
                     $.each(response, function (key, value){
-                        $('#id').val(value['empleado_id']);
-                        $('#name').val(value['nombre']);
-                        $('#username').val(value['nombre_usuario']);
-                        $('#password').val(value['password']);
-                        $('#rol').val(value['tipo_cuenta']);
-                        $('#state').val(value['estado']);
+                        $('#id').val(value['articulo_id']);
+                        $('#description').val(value['articulo_codigo']);
+                        $('#initialStock').val(value['stock_inicial']);
+                        $('#actualStock').val(value['stock_Actual']);
+                        $('#cat').val(value['categoria']);
                     });
                     modalEU.showModal();
                 }

@@ -14,19 +14,19 @@ CREATE TABLE empleados (
     estado BIT
 );
 
-CREATE TABLE articulos (
+CREATE TABLE articulo (
     articulo_codigo VARCHAR(128) PRIMARY KEY,
     descripcion TEXT
 );
 
-CREATE TABLE entradas (
-    entrada_id INT PRIMARY KEY AUTO_INCREMENT,
-    fecha_entrada DATE,
-    articulo_codigo VARCHAR(128),
-    persona_recibida SMALLINT,
-    Notas VARCHAR(30),
-    FOREIGN KEY(articulo_codigo) REFERENCES articulos(articulo_codigo),
-    FOREIGN KEY(persona_recibida) REFERENCES empleados(empleado_id)
+CREATE TABLE inventario (
+    articulo_id SMALLINT PRIMARY KEY AUTO_INCREMENT,
+    articulo_codigo VARCHAR(50),
+    stock_inicial SMALLINT,
+    stock_actual SMALLINT,
+    categoria VARCHAR(1),
+    FOREIGN KEY (articulo_codigo) REFERENCES articulos(articulo_codigo) 
+    ON DELETE CASCADE
 );
 
 CREATE TABLE empresas (
@@ -41,7 +41,7 @@ CREATE TABLE clientes (
     FOREIGN KEY empresa_id REFERENCES empresas(empresa_id)
 );
 
-CREATE TABLE pedidos (
+CREATE TABLE reporte (
     pedido_numero INT PRIMARY KEY AUTO_INCREMENT,
     articulo_codigo VARCHAR(128),
     fecha_salida DATE,
@@ -55,7 +55,19 @@ CREATE TABLE pedidos (
 
 -- Insert data into the tables
 INSERT INTO empleados (nombre, nombre_usuario, tipo_cuenta, estado)
-VALUES ("Peanut Butter", "cacahuate07", "administrador", 1), 
+VALUES ("Peanut Butter", "cacahuate07", "administrador", 1),
        ("Strawberry jelly", "mermelada15", "inventario", 1),
        ("Ben the cow", "pan007", "reporte", 1),
        ("Stuart the little rat", "pipi16", "administrador", 0);
+
+INSERT INTO articulos (articulo_codigo, descripcion)
+VALUES ("ZNHANDWHEEL", "HAND WEEL ZINK"),
+       ("SOLDSS_3/32", "SOLDADURA DE INOXIDABLE DE 3/32 x 3FT"),
+       ("RUBBER_1/16", "RUBBER NARANJA DE 1/16"),
+       ("RDTG2_5/16", "REDONDO DE TITANIO GRADO 2 DE 5/16"),
+       ("RDTG2_3/8", "REDONDO DE TITANIO GRADO 2 DE 3/8");
+
+INSERT INTO inventario (articulo_codigo, stock_inicial, stock_actual, categoria)
+VALUES ("ZNHANDWHEEL", 68, 12, "A"),
+       ("SOLDSS_3/32", 5, 5, "B"),
+       ("RUBBER_1/16", 6, 4, "C");
