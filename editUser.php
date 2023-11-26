@@ -1,9 +1,9 @@
 <?php
 $queryFail = $querySuccess = false;
-$id = $_GET["id"];
+$id = $_POST["editID"];
 if(isset($id)){
     $mysqli = require __DIR__ . "/scripts/database.php";
-    $sql = "SELECT * FROM empleados WHERE empleado_id = '$id'";
+    $sql = "SELECT * FROM empleados WHERE empleado_id = $id";
     $result = mysqli_query($mysqli, $sql);
     $user = $result -> fetch_assoc();
 
@@ -22,10 +22,10 @@ if(isset($id)){
         else{
             $querySuccess = true;
         }
+        header("Location: usuarios.php");
     }
 }
     else{
-        header("Location: index.php");
+        header("Location: usuarios.php");
         exit;
     }
-
