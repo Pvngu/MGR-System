@@ -100,18 +100,18 @@ if($user["tipo_cuenta"] !== "administrador"){
                     while($row = $result->fetch_assoc()){
                         echo "
                         <tr>
-                            <td>$row[empleado_id]</td>
+                            <td class = 'userID'>$row[empleado_id]</td>
                             <td>$row[nombre_usuario]</td>
                             <td>$row[nombre]</td>
                             <td>$row[password]</td>
                             <td>$row[tipo_cuenta]</td>
                             <td>$row[estado]</td>
                             <td class = 'actions'>
-                                <a class = 'openModalEU btn btn-info btn-lg open-modal' data-toggle='modal' data-id= $row[empleado_id] data-target='#myModal'>
-                                    <i class='bx bxs-edit-alt'></i>
+                                <a class = 'openModalEU edit_data'>
+                                    <i class='bx bxs-edit-alt' style = 'color: #2a8c3f'></i>
                                 </a>
                                 <a href='deleteUser.php?id=$row[empleado_id]'>
-                                    <i class='bx bx-trash'></i>
+                                    <i class='bx bx-trash' style = 'color: #fa7878'></i>
                                 </a>
                             </td>
                         </tr>
@@ -144,7 +144,7 @@ if($user["tipo_cuenta"] !== "administrador"){
                         </div>
                         <div class="box-item">
                             <label>Tipo de cuenta</label><br>
-                            <select name="rolSelector" class = "rolSelector">
+                            <select name="createRol" class = "rolSelector">
                                 <option value="administrador">Administrador</option>
                                 <option value="inventario">Inventario</option>
                                 <option value="operador">Operador</option>
@@ -164,22 +164,22 @@ if($user["tipo_cuenta"] !== "administrador"){
             <div class="modalContent EUModal" id="myModal">
                 <form method="post" action="editUser.php">
                     <div class="input-boxes">
-                        <input type="hidden" id="editID" name="editID">
+                        <input type="hidden" name="editId" id="id">
                         <div class="box-item">
                             <label>Nombre de usuario</label><br>
-                            <input name="editUsername" value = "">
+                            <input name="editUsername" id="username" value = "">
                         </div>
                         <div class="box-item">
                             <label>Nombre</label><br>
-                            <input name="editName">
+                            <input name="editName" id="name">
                         </div>
                         <div class="box-item">
                             <label>Contraseña</label><br>
-                            <input name="editPassword">
+                            <input name="editPassword" id="password">
                         </div>
                         <div class="box-item">
                             <label>Tipo de cuenta</label><br>
-                            <select name="updateRolSelector" class = "rolSelector">
+                            <select name="editRol" class = "rolSelector" id ="rol">
                                 <option value="administrador">Administrador</option>
                                 <option value="inventario">Inventario</option>
                                 <option value="operador">Operador</option>
@@ -200,7 +200,7 @@ if($user["tipo_cuenta"] !== "administrador"){
 <script src="assets/js/sidebar.js"></script>
 <script>
             //Create user window
-            const closeButtonCU = document.querySelector(".closeBtnModalCU");
+        const closeButtonCU = document.querySelector(".closeBtnModalCU");
         const modalCU = document.querySelector(".createUserModal");
         const openButtonCU = document.querySelector(".openModalCU")
         openButtonCU.addEventListener("click", () => {
@@ -215,21 +215,38 @@ if($user["tipo_cuenta"] !== "administrador"){
         const closeButtonEU = document.querySelector(".closeBtnModalEU");
         const modalEU = document.querySelector(".editUserModal");
         const openButtonEU = document.querySelectorAll(".openModalEU")
-        for(i = 0; i < openButtonEU.length; i++){
-            openButtonEU[i].addEventListener("click", () => {
-            modalEU.showModal();
-        })
-        }
         closeButtonEU.addEventListener("click", () => {
             modalEU.close();
         })
 </script>
+</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    $(document).on("click", ".open-modal", function() {
-        var id = $(this).data('id');
-        $('#editID').val(id);
+    $(document).ready(function () {
+        $('.edit_data').click(function(e) {
+            e.preventDefault();
+
+            var user_id = $(this).closest('tr').find('.userID').text();
+            console.log(user_id);
+
+            $.ajax({
+                method: "POST",
+                url: "editUser.php",
+                data: {
+                    'click_edit_btn': true,
+                    'user_id': user_id,
+                },
+                success: function (response) {
+                    $.each(response, function (key, value){
+                        $('#id').val(value['empleado_id']);
+                        $('#name').val(value['nombre']);
+                        $('#username').val(value['nombre_usuario']);
+                        $('#password').val(value['password']);
+                        $('#rol').val(value['tipo_cuenta']);
+                    });
+                    modalEU.showModal();
+                }
+            });
+        })
     });
-    
 </script>
-</html>
